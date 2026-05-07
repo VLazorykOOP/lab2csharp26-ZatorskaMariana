@@ -16,6 +16,7 @@ class Program
             Console.WriteLine("2 - Завдання 2 (між min і max)");
             Console.WriteLine("3 - Завдання 3 (2D масив, рядки)");
             Console.WriteLine("4 - Завдання 4 (східчастий масив)");
+            Console.WriteLine("5 - Юніт тест");
             Console.WriteLine("0 - Вихід");
             Console.Write("Ваш вибір: ");
 
@@ -27,6 +28,7 @@ class Program
                 case "2": Task2(); break;
                 case "3": Task3(); break;
                 case "4": Task4(); break;
+                case "5": Tests.RunTest(); break;
                 case "0": return;
                 default: Console.WriteLine("Невірний вибір"); break;
             }
@@ -34,6 +36,20 @@ class Program
             Console.WriteLine("\nНатисніть Enter...");
             Console.ReadLine();
         }
+    }
+
+    // Метод для тестування
+    public static double SumInRange(double[] arr, double a, double b)
+    {
+        double sum = 0;
+
+        for (int i = 0; i < arr.Length; i++)
+        {
+            if (arr[i] >= a && arr[i] <= b)
+                sum += arr[i];
+        }
+
+        return sum;
     }
 
     // ================= ЗАВДАННЯ 1 =================
@@ -56,13 +72,7 @@ class Program
         Console.Write("Кінець інтервалу: ");
         double b = double.Parse(Console.ReadLine());
 
-        double sum = 0;
-
-        for (int i = 0; i < n; i++)
-        {
-            if (arr[i] >= a && arr[i] <= b)
-                sum += arr[i];
-        }
+        double sum = SumInRange(arr, a, b);
 
         Console.WriteLine($"Сума: {sum}");
     }
@@ -91,6 +101,7 @@ class Program
                 min = arr[i];
                 minI = i;
             }
+
             if (arr[i] > max)
             {
                 max = arr[i];
@@ -105,6 +116,7 @@ class Program
         else
         {
             double sum = 0;
+
             for (int i = maxI + 1; i < minI; i++)
                 sum += arr[i];
 
@@ -120,7 +132,6 @@ class Program
 
         int[,] arr = new int[n, n];
 
-        // Ввід
         for (int i = 0; i < n; i++)
         {
             for (int j = 0; j < n; j++)
@@ -130,7 +141,6 @@ class Program
             }
         }
 
-        // Якщо парна кількість рядків
         if (n % 2 == 0)
         {
             for (int i = 0; i < n; i += 2)
@@ -144,14 +154,15 @@ class Program
             }
         }
 
-        // Вивід
         Console.WriteLine("Результат:");
+
         for (int i = 0; i < n; i++)
         {
             for (int j = 0; j < n; j++)
             {
                 Console.Write(arr[i, j] + "\t");
             }
+
             Console.WriteLine();
         }
     }
@@ -164,7 +175,6 @@ class Program
 
         int[][] arr = new int[n][];
 
-        // Ввід східчастого масиву
         for (int i = 0; i < n; i++)
         {
             Console.Write($"Скільки елементів у рядку {i}: ");
@@ -179,11 +189,13 @@ class Program
             }
         }
 
-        // Знаходимо максимальну кількість стовпців
         int maxCols = 0;
+
         for (int i = 0; i < n; i++)
+        {
             if (arr[i].Length > maxCols)
                 maxCols = arr[i].Length;
+        }
 
         int[] result = new int[maxCols];
 
@@ -202,6 +214,7 @@ class Program
         }
 
         Console.WriteLine("Результат:");
+
         for (int i = 0; i < result.Length; i++)
         {
             Console.WriteLine($"Стовпець {i}: рядок {result[i]}");
